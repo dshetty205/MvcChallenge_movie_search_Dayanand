@@ -1,0 +1,89 @@
+﻿@using Core.Model
+@model TitleDetails
+<br/>
+<table style="font-family: cursive;font-size: 13px">
+    <tr>
+        <td>
+            <b>Movie Name :- </b>@Model.TitleName (@Model.ReleaseYear)
+        </td>
+    </tr>
+    <tr>
+        <td><b>Processed Date Time :-</b> @Model.ProcessedDateTimeUTC.GetValueOrDefault().Date.ToString("dd MMM yyyy") </td>
+    </tr>
+    @{
+        var genres = Model.GenreName.Aggregate<string, string>(null, (current, g) => string.IsNullOrEmpty(current) ? g : current + ", " + g);
+    }
+    <tr>
+        <td>
+            <b>Genres :-</b> @genres
+            @{
+                var directors = Model.ParticipantsList.Where(d => d.RoleType == "Director").Aggregate<PaticipantsValue, string>(null, (current, director) => string.IsNullOrEmpty(current) ? director.Name : current + ", " + director.Name);
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Director:-</b> @directors
+            @{
+                var producers = Model.ParticipantsList.Where(d => d.RoleType == "Producers").Aggregate<PaticipantsValue, string>(null, (current, producer) => string.IsNullOrEmpty(current) ? producer.Name : current + ", " + producer.Name);
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <b>Producers:-</b> @producers
+            @{
+                var stars = Model.ParticipantsList.Where(d => d.RoleType == "Actor").Aggregate<PaticipantsValue, string>(null, (current, star) => string.IsNullOrEmpty(producers) ? star.Name : current + ", " + star.Name);
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div class="expander"><b>Stars:-</b> @stars</div>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @if (Model.StoryLinesList.Any())
+            {
+                <b>Story Line:-</b>
+                <ul>
+       
+                    @foreach (var sl in Model.StoryLinesList)
+                    {
+                        <li><div class="expander">  <b>@sl.Type :-</b> @sl.Description</div> </li>
+
+                    }
+                </ul>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @if (Model.AwardsList.Any())
+            {
+
+                <table>
+                    <tr>
+                        <td><b>Award</b></td>
+                        <td><b>Award Company</b></td>
+                        <td><b>Year</b></td>
+                    </tr>
+                    @foreach (var a in Model.AwardsList)
+                    {
+                        <tr>
+                            <td>@a.Award1</td>
+                            <td>@a.AwardCompany</td>
+                            <td>@a.AwardYear</td>
+                        </tr>
+                    }
+                </table>
+                <br />
+
+            }
+        </td>
+    </tr>
+</table>
+
+
+
