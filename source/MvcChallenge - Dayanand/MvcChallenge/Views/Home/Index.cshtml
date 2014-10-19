@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Search...";
+}
+
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+<link href="~/Content/themes/base/Bootstrap/bootstrap.css" rel="stylesheet" />
+    <input type="hidden" name="titleId" id="titleId" />
+<div class="input-append">
+    <input type="text" id="txtTitleName" name="txtTitleName" data-provide="typeahead" placeholder="Find movies..." autocomplete="off" />
+    <input type="button" id="btnSearch" name="btnSearch" value="Search" class="btn" />
+    
+</div>
+
+<div id="loading" style="display: none;"><p><img id="imgLoading" src="~/Images/ajax-loader.gif" /> Please Wait</p> </div>
+<div id="showTitleDetailsDiv"></div>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/jquery.expander.js"></script>
+<script src="~/Scripts/jquery-ui-1.8.24.js"></script>
+<script src="~/Scripts/Search.js"></script>
+}
